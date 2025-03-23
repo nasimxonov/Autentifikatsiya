@@ -1,0 +1,26 @@
+# Node.js modullari
+node_modules/
+
+# Muhim fayllar
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Kesh va vaqtinchalik fayllar
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# IDE va OS fayllari
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Log fayllari
+logs/
+*.log
+logs/*.log
