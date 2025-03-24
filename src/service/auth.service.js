@@ -19,13 +19,25 @@ class AuthService {
       ...user_data,
       password: hashedPassword,
     });
-
-    
     const token = this.jwtService.generateToken(user.id);
-    
     return token;
   }
-  async login() {}
+  async login({ phone_number, password }) {
+    const findUser = await this.databaeService.findUserByPhone({
+      phone_number,
+    });
+    if (!findUser)
+      throw new CustomError("Username or passsword is incorrect", 401);
+    try {
+      const comparePassword = await bcrypt.compare(password, findUser.password);
+      if (!comparePassword)
+        throw new CustomError("Username or passsword is incorrect", 401);
+      const token = this.jwtService.generateToken(findUser.id);
+      return token;
+    } catch (error) {
+      throw new CustomError(error.message, 401);
+    }
+  }
 }
 
 export default AuthService;

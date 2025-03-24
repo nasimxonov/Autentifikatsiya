@@ -10,15 +10,24 @@ class AuthController {
       const token = await this.authService.register(userData);
       res.status(201).json({
         token,
-      })
+      });
     } catch (error) {
       res.status(error.statusCode).json({ message: error.message });
     }
   }
 
-  loginController(req, res) {
+  async loginController(req, res) {
     try {
-    } catch (error) {}
+      const { phone_number, password } = req.body;
+      const token = await this.authService.login({ phone_number, password });
+      res.status(200).json({
+        token,
+      });
+    } catch (error) {
+      res.status(error.statusCode).json({
+        message: error.message
+      });
+    }
   }
 }
 
